@@ -280,6 +280,20 @@
   (printout t "With stench in (" ?x "," ?y "), maybe the wumpus is in (" ?x2  "," ?y2 ")." crlf)
   (modify ?f (has-wumpus MAYBE)))
 
+; CHANGE 1
+(defrule evaluate-stench2
+  (task think)
+  (cave (x ?x)(y ?y)(stench TRUE))
+  (adj ?x ?y ?x2 ?y2)
+  (cave (x ?x2)(y ?y2)(has-wumpus UNKNOWN))
+  ;(not( exists( (adj ?x ?y ?x3 ?y3) (((?x3 != ?x2) || (?y3 != ?y2)) && cave(x ?x3)(y ?y3)(has-wumpus UNKNOWN)) )))
+  
+  
+  ; has only one adjacent MAYBE wumpus
+  =>
+  (printout t "With stench in (" ?x "," ?y ") and no other options, the Wumpus has to be in (" ?x2  "," ?y2 ")." crlf)
+  (modify ?f (has-wumpus TRUE)))
+  
 (defrule evaluate-breeze-none
   (task think) 
   (cave (x ?x)(y ?y)(breeze FALSE))
