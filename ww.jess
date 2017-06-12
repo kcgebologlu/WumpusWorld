@@ -17,7 +17,8 @@
   (slot x (type INTEGER))
   (slot y (type INTEGER))
   (slot gold (default 0)(type INTEGER))
-  (slot alive (default TRUE)))
+  (slot alive (default TRUE))
+  (slot arrows (default 0)(type INTEGER)))
 
 (deftemplate desire "a hunter's desires"
   (slot agent)
@@ -278,18 +279,17 @@
   ?f <- (cave (x ?x2)(y ?y2)(has-wumpus UNKNOWN))
   =>
   (printout t "With stench in (" ?x "," ?y "), maybe the wumpus is in (" ?x2  "," ?y2 ")." crlf)
-  (modify ?f (has-wumpus MAYBE)))
+  (modify ?f (has-wumpus MAYBE))
+)
 
 ; CHANGE 1
 (defrule evaluate-stench2
   (task think)
   (cave (x ?x)(y ?y)(stench TRUE))
   (adj ?x ?y ?x2 ?y2)
-  (cave (x ?x2)(y ?y2)(has-wumpus UNKNOWN))
-  ;(not( exists( (adj ?x ?y ?x3 ?y3) (((?x3 != ?x2) || (?y3 != ?y2)) && cave(x ?x3)(y ?y3)(has-wumpus UNKNOWN)) )))
-  
-  
-  ; has only one adjacent MAYBE wumpus
+  ?f <- (cave (x ?x2)(y ?y2)(has-wumpus MAYBE))
+  (adj ?x ?y ?x3 ?y3)
+  (not (and (cave (x ?x3)(y ?y3)(has-wumpus MAYBE))  (or (different ?x2 ?x3) (different ?y2 ?y3)) ))  
   =>
   (printout t "With stench in (" ?x "," ?y ") and no other options, the Wumpus has to be in (" ?x2  "," ?y2 ")." crlf)
   (modify ?f (has-wumpus TRUE)))
@@ -311,6 +311,21 @@
   =>
   (printout t "A breeze in (" ?x "," ?y "), so there may be a pit in (" ?x2  "," ?y2 ")." crlf)
   (modify ?f (has-pit MAYBE)))
+
+
+; CHANGE 2
+(defrule evaluate-breeze2
+  (task think)
+  (cave (x ?x)(y ?y)(breeze TRUE))
+  (adj ?x ?y ?x2 ?y2)
+  ?f <- (cave (x ?x2)(y ?y2) (has-pit MAYBE))
+  (adj ?x ?y ?x4 ?y4)
+  (not (cave (x ?x4) (y ?y4) (has-pit TRUE)))
+  (adj ?x ?y ?x3 ?y3)
+  (not (and (cave (x ?x3)(y ?y3)(has-pit MAYBE))  (or (different ?x2 ?x3) (different ?y2 ?y3)) )) 
+  =>
+  (printout t "With breeze in (" ?x "," ?y ") and no other options, the Pit has to be in (" ?x2  "," ?y2 ")." crlf)
+  (modify ?f (has-pit TRUE)))
   
 (defrule evaluate-glitter 
   (task think) 
@@ -428,6 +443,18 @@
  (printout t ?agent " somewhat wants to go to (" ?x2 "," ?y2 ")." crlf)
  (assert (desire (agent ?agent) (strength ?*verylow*) (action go)(x ?x2)(y  ?y2))))
 
+; CHANGE 3
+(defrule kill-wumpus
+ "kill the wumpus when next to it"
+ (task think)
+ (hunter (agent ?agent)(x ?x)(y ?y))
+  (cave (x ?x2) (y ?y2) (has-wumpus TRUE))
+  (adj ?x ?y ?x2 ?y2)
+  =>
+  (printout t ?agent " knows where the Wumpus is, so she shoots!" crlf)
+  (assert (desire (agent ?agent) (strength ?*veryhigh*) (action shoot)))
+)
+
 
 ;; PLAN rules  --------------------------------------------------------------
 
@@ -439,7 +466,7 @@
     will only promote one desire to be a goal at a time."
   (task plan)
   ?f <- (desire (strength ?s)(action ?act)(x ?x)(y ?y))
-  (not (desire (strength ?s2&:(> ?s2 ?s))))
+  (not (desire (strength ?s2 & :(> ?s2 ?s))))
   (not (goal))
   => 
  (retract ?f)
@@ -537,6 +564,25 @@
   =>
   (printout t "WARNING: unsatisfied goal: " ?act " " ?x " " ?y "."  crlf)
   (halt))
+
+ ;CHANGE 4
+(defrule shoot
+  (task act)
+  ?goal <- (goal (agent ?a) (action shoot))
+  ?f1 <- (hunter (agent ?a)(x ?x)(y ?y)(arrows ?current))
+  (> 0 ?current)
+  =>
+  (printout t "Shooting the Wumpus..." )
+  (retract ?goal)
+  (modify ?f1 (arrows (- ?current 1)))
+  ?f2 <- (wumpus (x ?x2) (y ?y2) (alive TRUE))
+  (if (adj ?x ?y ?x2 ?y2) then
+    (modify ?f2 (alive FALSE))
+    (modify (cave (x ?x2)(y ?y2)) (has-wumpus DEAD))
+    (printout t " kill!" crlf)
+   else
+    (printout t "miss :(" crlf)))
+
 
 ;; TASK SWITCHING rules -------------------------------------------------------
 
