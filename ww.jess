@@ -282,14 +282,19 @@
   (modify ?f (has-wumpus MAYBE))
 )
 
+(defquery count-maybe-pits
+  (declare (variables ?x ?y))
+  (adj ?x ?y ?x2 ?y2)
+  (cave (x ?x2)(y ?y2)(has-wumpus MAYBE)))
+  
+
 ; CHANGE 1
 (defrule evaluate-stench2
   (task think)
   (cave (x ?x)(y ?y)(stench TRUE))
+  (test (= 1 (count-query-results count-maybe-pits ?x ?y)))
   (adj ?x ?y ?x2 ?y2)
   ?f <- (cave (x ?x2)(y ?y2)(has-wumpus MAYBE))
-  (adj ?x ?y ?x3 ?y3)
-  (not (and (cave (x ?x3)(y ?y3)(has-wumpus MAYBE))  (or (different ?x2 ?x3) (different ?y2 ?y3)) ))  
   =>
   (printout t "With stench in (" ?x "," ?y ") and no other options, the Wumpus has to be in (" ?x2  "," ?y2 ")." crlf)
   (modify ?f (has-wumpus TRUE)))
@@ -452,7 +457,7 @@
   (adj ?x ?y ?x2 ?y2)
   =>
   (printout t ?agent " knows where the Wumpus is, so she shoots!" crlf)
-  (assert (desire (agent ?agent) (strength ?*veryhigh*) (action shoot)))
+  (assert (desire (agent ?agent) (strength ?*veryhigh*) (action shoot)(x ?x)(y ?y)))
 )
 
 
@@ -556,7 +561,7 @@
   and she is already here." crlf)
   (retract ?goal))
 
-(defrule retract-satisfied-goal
+(defrule retract-satisfied-goal2
   ;; this shouldn't happen, and is here for debugging.
   (declare (salience -1))
   (task act)
@@ -568,20 +573,19 @@
  ;CHANGE 4
 (defrule shoot
   (task act)
-  ?goal <- (goal (agent ?a) (action shoot))
+  ?goal <- (goal (agent ?a) (action shoot)(x ?x)(y ?y))
   ?f1 <- (hunter (agent ?a)(x ?x)(y ?y)(arrows ?current))
-  (> 0 ?current)
+  ?f2 <- (wumpus (x ?x2) (y ?y2) (alive TRUE))
+  ?c <- (cave (x ?x2)(y ?y2))
+  (adj ?x ?y ?x2 ?y2)
+  (test(> 0 ?current))
   =>
-  (printout t "Shooting the Wumpus..." )
+  (printout t "Shot the Wumpus dead!" crlf )
   (retract ?goal)
   (modify ?f1 (arrows (- ?current 1)))
-  ?f2 <- (wumpus (x ?x2) (y ?y2) (alive TRUE))
-  (if (adj ?x ?y ?x2 ?y2) then
-    (modify ?f2 (alive FALSE))
-    (modify (cave (x ?x2)(y ?y2)) (has-wumpus DEAD))
-    (printout t " kill!" crlf)
-   else
-    (printout t "miss :(" crlf)))
+  (modify ?f2 (alive FALSE))
+  (modify ?c (has-wumpus DEAD))
+)
 
 
 ;; TASK SWITCHING rules -------------------------------------------------------
