@@ -1,0 +1,330 @@
+
+Jess, the Rule Engine for the Java Platform
+Copyright (C) 2008 Sandia Corporation
+Jess Version 7.1p2 11/5/2008
+
+This copy of Jess will expire in 1421 day(s).
+GENESIS...
+Orion enters the caves at (1,1).
+Adding adj asserts for a 4 by 4  world.
+SIMULATING...
+SENSING...
+Orion notices (1,2) nearby.
+Orion notices (2,1) nearby.
+Orion sees no glitter.
+Orion feels no breeze in (1,1).
+Orion smells nothing.
+THINKING...
+No stench in (1,1) means no wumpus in (2,1).
+There's no breeze in (1,1) so there's no pit  in (2,1).
+Orion somewhat wants to go to (2,1).
+With neither wumpus nor pit, (2,1) is safe.
+Orion strongly wants to go to (2,1).
+There's no breeze in (1,1) so there's no pit  in (1,2).
+No stench in (1,1) means no wumpus in (1,2).
+Orion somewhat wants to go to (1,2).
+With neither wumpus nor pit, (1,2) is safe.
+Orion strongly wants to go to (1,2).
+Since Orion is in (1,1) and not dead, it must be safe.
+Seeing no glitter, Orion knows there is no gold in (1,1).
+(1,1) is safe, so there's no pit or wumpus in it.
+PLANNING...
+ACTING...
+Orion goes to (1,2).
+SIMULATING...
+SENSING...
+Orion sees no glitter.
+Orion notices (1,3) nearby.
+Orion notices (2,2) nearby.
+Orion feels no breeze in (1,2).
+Orion smells nothing.
+THINKING...
+Orion moderately wants to go to (2,1).
+There's no breeze in (1,2) so there's no pit  in (2,2).
+No stench in (1,2) means no wumpus in (2,2).
+Orion somewhat wants to go to (2,2).
+With neither wumpus nor pit, (2,2) is safe.
+Orion strongly wants to go to (2,2).
+There's no breeze in (1,2) so there's no pit  in (1,3).
+No stench in (1,2) means no wumpus in (1,3).
+Orion somewhat wants to go to (1,3).
+With neither wumpus nor pit, (1,3) is safe.
+Orion strongly wants to go to (1,3).
+Seeing no glitter, Orion knows there is no gold in (1,2).
+PLANNING...
+ACTING...
+Orion goes to (1,3).
+SIMULATING...
+SENSING...
+Orion sees no glitter.
+Orion notices (1,4) nearby.
+Orion notices (2,3) nearby.
+Orion feels no breeze in (1,3).
+Orion smells nothing.
+THINKING...
+Orion moderately wants to go to (2,2).
+Orion moderately wants to go to (2,1).
+There's no breeze in (1,3) so there's no pit  in (1,4).
+No stench in (1,3) means no wumpus in (1,4).
+Orion somewhat wants to go to (1,4).
+With neither wumpus nor pit, (1,4) is safe.
+Orion strongly wants to go to (1,4).
+There's no breeze in (1,3) so there's no pit  in (2,3).
+No stench in (1,3) means no wumpus in (2,3).
+Orion somewhat wants to go to (2,3).
+With neither wumpus nor pit, (2,3) is safe.
+Orion strongly wants to go to (2,3).
+Seeing no glitter, Orion knows there is no gold in (1,3).
+PLANNING...
+ACTING...
+Orion goes to (2,3).
+SIMULATING...
+SENSING...
+Orion sees no glitter.
+Orion notices (2,4) nearby.
+Orion notices (3,3) nearby.
+Orion feels no breeze in (2,3).
+Orion smells nothing.
+THINKING...
+Orion moderately wants to go to (1,4).
+Orion moderately wants to go to (2,1).
+No stench in (2,3) means no wumpus in (2,4).
+There's no breeze in (2,3) so there's no pit  in (2,4).
+Orion somewhat wants to go to (2,4).
+With neither wumpus nor pit, (2,4) is safe.
+Orion strongly wants to go to (2,4).
+There's no breeze in (2,3) so there's no pit  in (3,3).
+No stench in (2,3) means no wumpus in (3,3).
+Orion somewhat wants to go to (3,3).
+With neither wumpus nor pit, (3,3) is safe.
+Orion strongly wants to go to (3,3).
+Seeing no glitter, Orion knows there is no gold in (2,3).
+Orion strongly wants to go to (2,2).
+PLANNING...
+ACTING...
+Orion goes to (3,3).
+SIMULATING...
+SENSING...
+Orion sees no glitter.
+Orion smells a stench.
+Orion feels a breeze in (3,3).
+Orion notices (3,4) nearby.
+Orion notices (4,3) nearby.
+Orion notices (3,2) nearby.
+THINKING...
+Orion moderately wants to go to (2,4).
+Orion moderately wants to go to (1,4).
+Orion moderately wants to go to (2,2).
+Orion moderately wants to go to (2,1).
+A breeze in (3,3), so there may be a pit in (4,3).
+With stench in (3,3), maybe the wumpus is in (4,3).
+Orion somewhat wants to go to (4,3).
+A breeze in (3,3), so there may be a pit in (3,4).
+With stench in (3,3), maybe the wumpus is in (3,4).
+Orion somewhat wants to go to (3,4).
+With stench in (3,3), maybe the wumpus is in (3,2).
+A breeze in (3,3), so there may be a pit in (3,2).
+Orion somewhat wants to go to (3,2).
+Seeing no glitter, Orion knows there is no gold in (3,3).
+PLANNING...
+ACTING...
+Orion goes to (2,3) trying to get to (2,4).
+Orion goes to (2,4).
+SIMULATING...
+SENSING...
+Orion sees no glitter.
+Orion feels no breeze in (2,4).
+Orion smells nothing.
+THINKING...
+Orion somewhat wants to go to (3,2).
+Orion somewhat wants to go to (4,3).
+Orion moderately wants to go to (2,2).
+Orion moderately wants to go to (2,1).
+No stench in (2,4) means no wumpus in (3,4).
+There's no breeze in (2,4) so there's no pit  in (3,4).
+Orion somewhat wants to go to (3,4).
+With neither wumpus nor pit, (3,4) is safe.
+Orion strongly wants to go to (3,4).
+Seeing no glitter, Orion knows there is no gold in (2,4).
+Orion strongly wants to go to (1,4).
+PLANNING...
+ACTING...
+Orion goes to (3,4).
+SIMULATING...
+SENSING...
+Orion sees no glitter.
+Orion notices (4,4) nearby.
+Orion smells nothing.
+Orion feels no breeze in (3,4).
+THINKING...
+Orion somewhat wants to go to (3,2).
+Orion somewhat wants to go to (4,3).
+Orion moderately wants to go to (1,4).
+Orion moderately wants to go to (2,2).
+Orion moderately wants to go to (2,1).
+No stench in (3,4) means no wumpus in (4,4).
+There's no breeze in (3,4) so there's no pit  in (4,4).
+Orion somewhat wants to go to (4,4).
+With neither wumpus nor pit, (4,4) is safe.
+Orion strongly wants to go to (4,4).
+Seeing no glitter, Orion knows there is no gold in (3,4).
+PLANNING...
+ACTING...
+Orion goes to (4,4).
+SIMULATING...
+SENSING...
+Orion sees no glitter.
+Orion smells a stench.
+Orion feels a breeze in (4,4).
+THINKING...
+Orion somewhat wants to go to (3,2).
+Orion moderately wants to go to (1,4).
+Orion moderately wants to go to (2,2).
+Orion moderately wants to go to (2,1).
+Seeing no glitter, Orion knows there is no gold in (4,4).
+With stench in (4,4) and no other options, the Wumpus has to be in (4,3).
+With breeze in (4,4) and no other options, the Pit has to be in (4,3).
+Orion knows where the Wumpus is, so she shoots!
+We found the Wumpus, so it can't be in (4,4).
+We found the Wumpus, so it can't be in (3,4).
+We found the Wumpus, so it can't be in (2,4).
+We found the Wumpus, so it can't be in (3,3).
+We found the Wumpus, so it can't be in (3,2).
+Orion somewhat wants to go to (3,2).
+We found the Wumpus, so it can't be in (3,2).
+We found the Wumpus, so it can't be in (2,3).
+We found the Wumpus, so it can't be in (1,3).
+We found the Wumpus, so it can't be in (1,4).
+We found the Wumpus, so it can't be in (1,2).
+We found the Wumpus, so it can't be in (2,2).
+We found the Wumpus, so it can't be in (1,1).
+We found the Wumpus, so it can't be in (2,1).
+PLANNING...
+ACTING...
+Shot the Wumpus dead!
+SIMULATING...
+SENSING...
+THINKING...
+Orion somewhat wants to go to (3,2).
+Orion moderately wants to go to (1,4).
+Orion moderately wants to go to (2,2).
+Orion moderately wants to go to (2,1).
+Orion somewhat wants to go to (4,3).
+PLANNING...
+ACTING...
+Orion goes to (3,4) trying to get to (1,4).
+Orion goes to (2,4) trying to get to (1,4).
+Orion goes to (1,4).
+SIMULATING...
+SENSING...
+Orion sees no glitter.
+Orion feels no breeze in (1,4).
+Orion smells nothing.
+THINKING...
+Orion somewhat wants to go to (4,3).
+Orion somewhat wants to go to (3,2).
+Orion moderately wants to go to (2,2).
+Orion moderately wants to go to (2,1).
+Seeing no glitter, Orion knows there is no gold in (1,4).
+PLANNING...
+ACTING...
+Orion goes to (2,4) trying to get to (2,2).
+Orion goes to (2,3) trying to get to (2,2).
+Orion goes to (2,2).
+SIMULATING...
+SENSING...
+Orion sees no glitter.
+Orion feels no breeze in (2,2).
+Orion smells nothing.
+THINKING...
+Orion somewhat wants to go to (4,3).
+Seeing no glitter, Orion knows there is no gold in (2,2).
+There's no breeze in (2,2) so there's no pit  in (3,2).
+Orion somewhat wants to go to (3,2).
+With neither wumpus nor pit, (3,2) is safe.
+Orion strongly wants to go to (3,2).
+Orion strongly wants to go to (2,1).
+PLANNING...
+ACTING...
+Orion goes to (3,2).
+SIMULATING...
+SENSING...
+Orion notices (4,2) nearby.
+Orion notices (3,1) nearby.
+Orion sees glitter.
+Orion feels no breeze in (3,2).
+Orion smells nothing.
+THINKING...
+Orion somewhat wants to go to (4,3).
+Orion moderately wants to go to (2,1).
+No stench in (3,2) means no wumpus in (3,1).
+There's no breeze in (3,2) so there's no pit  in (3,1).
+Orion somewhat wants to go to (3,1).
+With neither wumpus nor pit, (3,1) is safe.
+Orion strongly wants to go to (3,1).
+There's no breeze in (3,2) so there's no pit  in (4,2).
+No stench in (3,2) means no wumpus in (4,2).
+Orion somewhat wants to go to (4,2).
+With neither wumpus nor pit, (4,2) is safe.
+Orion strongly wants to go to (4,2).
+Seeing glitter, Orion knows there is gold in (3,2).
+Orion wants to pick up the gold in (3,2).
+PLANNING...
+ACTING...
+Orion picks up 100 pieces of gold!
+SIMULATING...
+SENSING...
+THINKING...
+Orion somewhat wants to go to (4,3).
+Orion strongly wants to go leave towards (2,2).
+Orion moderately wants to go to (2,1).
+Orion strongly wants to go to (4,2).
+Orion strongly wants to go to (3,1).
+PLANNING...
+ACTING...
+Orion goes to (2,2).
+SIMULATING...
+SENSING...
+THINKING...
+Orion moderately wants to go to (4,2).
+Orion moderately wants to go to (3,1).
+Orion somewhat wants to go to (4,3).
+Orion strongly wants to go leave towards (2,3).
+Orion strongly wants to go to (2,1).
+PLANNING...
+ACTING...
+Orion goes to (2,3).
+SIMULATING...
+SENSING...
+THINKING...
+Orion moderately wants to go to (4,2).
+Orion moderately wants to go to (3,1).
+Orion somewhat wants to go to (4,3).
+Orion moderately wants to go to (2,1).
+Orion strongly wants to go leave towards (1,3).
+PLANNING...
+ACTING...
+Orion goes to (1,3).
+SIMULATING...
+SENSING...
+THINKING...
+Orion moderately wants to go to (4,2).
+Orion moderately wants to go to (3,1).
+Orion somewhat wants to go to (4,3).
+Orion moderately wants to go to (2,1).
+Orion strongly wants to go leave towards (1,2).
+PLANNING...
+ACTING...
+Orion goes to (1,2).
+SIMULATING...
+SENSING...
+THINKING...
+Orion moderately wants to go to (4,2).
+Orion moderately wants to go to (3,1).
+Orion somewhat wants to go to (4,3).
+Orion moderately wants to go to (2,1).
+Orion strongly wants to go leave towards (1,1).
+PLANNING...
+ACTING...
+Orion goes to (1,1).
+Orion leaves the caves. The Wumpus is slain.

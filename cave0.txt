@@ -1,0 +1,163 @@
+
+Jess, the Rule Engine for the Java Platform
+Copyright (C) 2008 Sandia Corporation
+Jess Version 7.1p2 11/5/2008
+
+This copy of Jess will expire in 1421 day(s).
+GENESIS...
+Xena enters the caves at (1,1).
+Adding adj asserts for a 4 by 4  world.
+SIMULATING...
+SENSING...
+Xena notices (1,2) nearby.
+Xena notices (2,1) nearby.
+Xena sees no glitter.
+Xena feels no breeze in (1,1).
+Xena smells nothing.
+THINKING...
+No stench in (1,1) means no wumpus in (1,2).
+There's no breeze in (1,1) so there's no pit  in (1,2).
+Xena somewhat wants to go to (1,2).
+With neither wumpus nor pit, (1,2) is safe.
+Xena strongly wants to go to (1,2).
+There's no breeze in (1,1) so there's no pit  in (2,1).
+No stench in (1,1) means no wumpus in (2,1).
+Xena somewhat wants to go to (2,1).
+With neither wumpus nor pit, (2,1) is safe.
+Xena strongly wants to go to (2,1).
+Seeing no glitter, Xena knows there is no gold in (1,1).
+Since Xena is in (1,1) and not dead, it must be safe.
+(1,1) is safe, so there's no pit or wumpus in it.
+PLANNING...
+ACTING...
+Xena goes to (2,1).
+SIMULATING...
+SENSING...
+Xena sees no glitter.
+Xena feels a breeze in (2,1).
+Xena notices (2,2) nearby.
+Xena notices (3,1) nearby.
+Xena smells nothing.
+THINKING...
+Xena moderately wants to go to (1,2).
+A breeze in (2,1), so there may be a pit in (3,1).
+No stench in (2,1) means no wumpus in (3,1).
+Xena somewhat wants to go to (3,1).
+No stench in (2,1) means no wumpus in (2,2).
+A breeze in (2,1), so there may be a pit in (2,2).
+Xena somewhat wants to go to (2,2).
+Seeing no glitter, Xena knows there is no gold in (2,1).
+PLANNING...
+ACTING...
+Xena goes to (1,1) trying to get to (1,2).
+Xena goes to (1,2).
+SIMULATING...
+SENSING...
+Xena sees no glitter.
+Xena smells a stench.
+Xena notices (1,3) nearby.
+Xena feels no breeze in (1,2).
+THINKING...
+Xena somewhat wants to go to (3,1).
+With stench in (1,2), maybe the wumpus is in (1,3).
+There's no breeze in (1,2) so there's no pit  in (1,3).
+Xena somewhat wants to go to (1,3).
+There's no breeze in (1,2) so there's no pit  in (2,2).
+Xena somewhat wants to go to (2,2).
+With neither wumpus nor pit, (2,2) is safe.
+Xena strongly wants to go to (2,2).
+Seeing no glitter, Xena knows there is no gold in (1,2).
+With stench in (1,2) and no other options, the Wumpus has to be in (1,3).
+We found the Wumpus, so it can't be in (1,2).
+We found the Wumpus, so it can't be in (2,2).
+Xena knows where the Wumpus is, so she shoots!
+We found the Wumpus, so it can't be in (2,1).
+We found the Wumpus, so it can't be in (3,1).
+We found the Wumpus, so it can't be in (1,1).
+PLANNING...
+ACTING...
+Shot the Wumpus dead!
+SIMULATING...
+SENSING...
+THINKING...
+Xena somewhat wants to go to (3,1).
+Xena somewhat wants to go to (1,3).
+Xena strongly wants to go to (2,2).
+With neither wumpus nor pit, (1,3) is safe.
+Xena strongly wants to go to (1,3).
+PLANNING...
+ACTING...
+Xena goes to (1,3).
+SIMULATING...
+SENSING...
+Xena sees no glitter.
+Xena notices (1,4) nearby.
+Xena notices (2,3) nearby.
+Xena feels no breeze in (1,3).
+Xena smells nothing.
+THINKING...
+Xena moderately wants to go to (2,2).
+Xena somewhat wants to go to (3,1).
+There's no breeze in (1,3) so there's no pit  in (1,4).
+No stench in (1,3) means no wumpus in (1,4).
+Xena somewhat wants to go to (1,4).
+With neither wumpus nor pit, (1,4) is safe.
+Xena strongly wants to go to (1,4).
+There's no breeze in (1,3) so there's no pit  in (2,3).
+No stench in (1,3) means no wumpus in (2,3).
+Xena somewhat wants to go to (2,3).
+With neither wumpus nor pit, (2,3) is safe.
+Xena strongly wants to go to (2,3).
+Seeing no glitter, Xena knows there is no gold in (1,3).
+PLANNING...
+ACTING...
+Xena goes to (2,3).
+SIMULATING...
+SENSING...
+Xena feels a breeze in (2,3).
+Xena sees glitter.
+Xena notices (3,3) nearby.
+Xena smells nothing.
+THINKING...
+Xena moderately wants to go to (1,4).
+Xena somewhat wants to go to (3,1).
+No stench in (2,3) means no wumpus in (3,3).
+A breeze in (2,3), so there may be a pit in (3,3).
+With breeze in (2,3) and no other options, the Pit has to be in (3,3).
+Seeing glitter, Xena knows there is gold in (2,3).
+Xena wants to pick up the gold in (2,3).
+Xena strongly wants to go to (2,2).
+PLANNING...
+ACTING...
+Xena picks up 10 pieces of gold!
+SIMULATING...
+SENSING...
+THINKING...
+Xena moderately wants to go to (1,4).
+Xena strongly wants to go leave towards (1,3).
+Xena somewhat wants to go to (3,1).
+Xena strongly wants to go to (2,2).
+PLANNING...
+ACTING...
+Xena goes to (1,3).
+SIMULATING...
+SENSING...
+THINKING...
+Xena moderately wants to go to (2,2).
+Xena somewhat wants to go to (3,1).
+Xena strongly wants to go leave towards (1,2).
+Xena strongly wants to go to (1,4).
+PLANNING...
+ACTING...
+Xena goes to (1,2).
+SIMULATING...
+SENSING...
+THINKING...
+Xena moderately wants to go to (1,4).
+Xena somewhat wants to go to (3,1).
+Xena strongly wants to go leave towards (1,1).
+Xena strongly wants to go to (2,2).
+PLANNING...
+ACTING...
+Xena goes to (1,1).
+Xena leaves the caves. The Wumpus is slain.
