@@ -1,3 +1,4 @@
+(batch ww.jess)
 (deffacts caves
   (worldsize 6 5)
   (hunter (agent Seeker))
@@ -13,5 +14,6 @@
   (nocave (x 4)(y 3))
   (nocave (x 4)(y 4))
   (exit (x 1)(y 1)))
-
+(reset)
+(run)
 

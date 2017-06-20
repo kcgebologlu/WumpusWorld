@@ -18,7 +18,7 @@
   (slot y (type INTEGER))
   (slot gold (default 0)(type INTEGER))
   (slot alive (default TRUE))
-  (slot arrows (default 0)(type INTEGER)))
+  (slot arrows (default 1)(type INTEGER)))
 
 (deftemplate desire "a hunter's desires"
   (slot agent)
@@ -282,7 +282,7 @@
   (modify ?f (has-wumpus MAYBE))
 )
 
-(defquery count-maybe-pits
+(defquery count-maybe-wumpus
   (declare (variables ?x ?y))
   (adj ?x ?y ?x2 ?y2)
   (cave (x ?x2)(y ?y2)(has-wumpus MAYBE)))
@@ -292,13 +292,25 @@
 (defrule evaluate-stench2
   (task think)
   (cave (x ?x)(y ?y)(stench TRUE))
-  (test (= 1 (count-query-results count-maybe-pits ?x ?y)))
+  (test (= 1 (count-query-results count-maybe-wumpus ?x ?y)))
   (adj ?x ?y ?x2 ?y2)
   ?f <- (cave (x ?x2)(y ?y2)(has-wumpus MAYBE))
   =>
   (printout t "With stench in (" ?x "," ?y ") and no other options, the Wumpus has to be in (" ?x2  "," ?y2 ")." crlf)
-  (modify ?f (has-wumpus TRUE)))
-  
+  (modify ?f (has-wumpus TRUE)(safe FALSE)))
+
+(defrule only-one-wumpus
+  (task think)
+  ?f1 <-(cave (x ?x)(y ?y)(has-wumpus TRUE))
+  ?f2 <- (cave (x ?x2) (y ?y2))
+  (test (not (eq ?f1 ?f2)))
+  ;(test (not (and (eq ?x ?x2) (eq ?y ?y2))))
+  =>
+  (printout t "We found the Wumpus, so it can't be in (" ?x2 "," ?y2 ")." crlf)
+  (modify ?f2 (has-wumpus FALSE))
+  )
+
+
 (defrule evaluate-breeze-none
   (task think) 
   (cave (x ?x)(y ?y)(breeze FALSE))
@@ -319,18 +331,21 @@
 
 
 ; CHANGE 2
+(defquery count-maybe-pits
+  (declare (variables ?x ?y))
+  (adj ?x ?y ?x2 ?y2)
+  (cave (x ?x2)(y ?y2)(has-pit ~FALSE))
+)
+
 (defrule evaluate-breeze2
   (task think)
   (cave (x ?x)(y ?y)(breeze TRUE))
+  (test (= 1 (count-query-results count-maybe-pits ?x ?y)))
   (adj ?x ?y ?x2 ?y2)
-  ?f <- (cave (x ?x2)(y ?y2) (has-pit MAYBE))
-  (adj ?x ?y ?x4 ?y4)
-  (not (cave (x ?x4) (y ?y4) (has-pit TRUE)))
-  (adj ?x ?y ?x3 ?y3)
-  (not (and (cave (x ?x3)(y ?y3)(has-pit MAYBE))  (or (different ?x2 ?x3) (different ?y2 ?y3)) )) 
+  ?f <- (cave (x ?x2)(y ?y2)(has-pit MAYBE))
   =>
   (printout t "With breeze in (" ?x "," ?y ") and no other options, the Pit has to be in (" ?x2  "," ?y2 ")." crlf)
-  (modify ?f (has-pit TRUE)))
+  (modify ?f (has-pit TRUE)(safe FALSE)))
   
 (defrule evaluate-glitter 
   (task think) 
@@ -376,19 +391,24 @@
 
 (defrule desire-to-leave-caves 
   (task think)
-  (hunter (agent ?a)(x ?x)(y ?y)(gold ~0))
+  (hunter (agent ?a)(x ?x)(y ?y)(gold ~0)(arrows ?arr))
+  (wumpus (alive ?w))
+  (test (or (not ?w) (eq 0 ?arr)))
   (cave (x ?x)(y ?y)(has-exit TRUE))
+  ;TODO: add desire to kill wumpus or at least try
   => 
   (printout t "Having found the gold, " ?a " want to leave the caves." crlf)
   (assert (desire (agent ?a)(strength ?*veryhigh*)(action leavecaves))))
 
 (defrule add-desire-to-head-for-the-exit
   (task think) 
-  (hunter (agent ?agent) (x ?x)(y ?y)(gold ~0))
+  (hunter (agent ?agent) (x ?x)(y ?y)(gold ~0)(arrows ?arr))
+  (wumpus (alive ?w))
+  (test (or (not ?w) (eq 0 ?arr)))
   (cave (x ?x)(y ?y)(fromx ?fx)(fromy ?fy))
   (test (> ?fx 0))
   =>  
- (printout t ?agent " strongly wants to go to (" ?fx "," ?fy ")." crlf)
+ (printout t ?agent " strongly wants to go leave towards (" ?fx "," ?fy ")." crlf)
  (assert (desire (agent ?agent) (strength ?*veryhigh*) (action go)(x ?fx)(y ?fy))))
 
 (defrule lust-for-gold
@@ -448,11 +468,20 @@
  (printout t ?agent " somewhat wants to go to (" ?x2 "," ?y2 ")." crlf)
  (assert (desire (agent ?agent) (strength ?*verylow*) (action go)(x ?x2)(y  ?y2))))
 
+
+; CHANGE 6
+(defrule dont-be-stupid
+  (task think)
+  ?d <- (desire (agent ?agent) (action go)(x ?x)(y ?y))
+  (cave (x ?x)(y ?y)(safe FALSE))
+  =>
+  (retract ?d))
+
 ; CHANGE 3
 (defrule kill-wumpus
  "kill the wumpus when next to it"
- (task think)
- (hunter (agent ?agent)(x ?x)(y ?y))
+  (task think)
+  (hunter (agent ?agent)(x ?x)(y ?y)(arrows ~0))
   (cave (x ?x2) (y ?y2) (has-wumpus TRUE))
   (adj ?x ?y ?x2 ?y2)
   =>
@@ -486,9 +515,12 @@
   "If the hunter has gold and finds an exit, she leaves."
   (task act) 
   (hunter (agent ?agent) (x ?x)(y ?y)(gold ~0))
+  (wumpus (alive ?wa))
   (exit (x ?x)(y ?y))
   =>  
- (printout t ?agent " leaves the caves." crlf)
+ (printout t ?agent " leaves the caves. ")
+ (if ?wa then (printout t "The Wumpus survived... for now.") else (printout t "The Wumpus is slain."))
+ (printout t crlf)
  (halt))
 
 (defrule pickup-gold 
@@ -535,6 +567,42 @@
   (printout t ?agent " goes to (" ?x2 "," ?y2 ") trying to get to (" ?x3 "," ?y3 ")." crlf)
   (modify ?hunter (x ?x2)(y ?y2)))
 
+;CHANGE 5
+(defrule teleport
+  (declare (salience -1))
+  (task act)
+  ?hunter <-(hunter (agent ?agent) (x ?x1)(y ?y1))
+  (cave (x ?x1)(y ?y1)(fromx ?x2)(fromy ?y2))
+  (goal (action go) (x ?x3)(y ?y3))
+  (cave (x ?x2)(y ?y2)(safe TRUE))
+  (not (adj ?x1 ?y1 ?x3 ?y3))
+  (adj ?x1 ?y1 ?x2 ?y2)
+  (not (test (between ?x1 ?y1 ?x2 ?y2 ?x3 ?y3)))
+  (adj ?x3 ?y3 ?x4 ?y4)
+  (cave (x ?x4)(y ?y4)(safe TRUE))
+  =>
+  (printout t ?agent " is to stupid to move and magically teleports to (" ?x4 "," ?y4 ")." crlf)
+  (modify ?hunter (x ?x4)(y ?y4))
+)
+
+
+ ;CHANGE 4
+(defrule shoot
+  (task act)
+  ?goal <- (goal (action shoot))
+  ?f1 <- (hunter (agent ?a)(x ?x)(y ?y)(arrows ?current))
+  ?f2 <- (wumpus (x ?x2) (y ?y2) (alive TRUE))
+  ?c <- (cave (x ?x2)(y ?y2))
+  (adj ?x ?y ?x2 ?y2)
+  =>
+  (printout t "Shot the Wumpus dead!" crlf )
+  (retract ?goal)
+  (modify ?f1 (arrows (- ?current 1)))
+  (modify ?f2 (alive FALSE))
+  (modify ?c (has-wumpus FALSE)(safe UNKNOWN))
+)
+
+
 (defrule delete-desires
   "retracts any desire facts in the database" 
   (task act)
@@ -563,29 +631,12 @@
 
 (defrule retract-satisfied-goal2
   ;; this shouldn't happen, and is here for debugging.
-  (declare (salience -1))
+  (declare (salience -2))
   (task act)
   ?goal <- (goal (agent ?a) (action ?act)(x ?x)(y ?y))
   =>
   (printout t "WARNING: unsatisfied goal: " ?act " " ?x " " ?y "."  crlf)
   (halt))
-
- ;CHANGE 4
-(defrule shoot
-  (task act)
-  ?goal <- (goal (agent ?a) (action shoot)(x ?x)(y ?y))
-  ?f1 <- (hunter (agent ?a)(x ?x)(y ?y)(arrows ?current))
-  ?f2 <- (wumpus (x ?x2) (y ?y2) (alive TRUE))
-  ?c <- (cave (x ?x2)(y ?y2))
-  (adj ?x ?y ?x2 ?y2)
-  (test(> 0 ?current))
-  =>
-  (printout t "Shot the Wumpus dead!" crlf )
-  (retract ?goal)
-  (modify ?f1 (arrows (- ?current 1)))
-  (modify ?f2 (alive FALSE))
-  (modify ?c (has-wumpus DEAD))
-)
 
 
 ;; TASK SWITCHING rules -------------------------------------------------------
