@@ -18,7 +18,7 @@
   (slot y (type INTEGER))
   (slot gold (default 0)(type INTEGER))
   (slot alive (default TRUE))
-  (slot arrows (default 1)(type INTEGER)))
+  (slot arrows (default 1)(type INTEGER))) ;CHANGE 7
 
 (deftemplate desire "a hunter's desires"
   (slot agent)
@@ -282,13 +282,12 @@
   (modify ?f (has-wumpus MAYBE))
 )
 
+; CHANGE 1
 (defquery count-maybe-wumpus
   (declare (variables ?x ?y))
   (adj ?x ?y ?x2 ?y2)
   (cave (x ?x2)(y ?y2)(has-wumpus MAYBE)))
   
-
-; CHANGE 1
 (defrule evaluate-stench2
   (task think)
   (cave (x ?x)(y ?y)(stench TRUE))
